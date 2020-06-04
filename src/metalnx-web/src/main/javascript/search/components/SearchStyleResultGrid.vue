@@ -19,27 +19,35 @@
       getGridData:  function () {
         var resultData = [];
         for (var entry in this.searchResult.search_result) {
+          // Converting properties array to dictionary
+          var propertySet = this.searchResult.search_result[entry].properties.propertySet
+          var propertyDict = {};
+          for (var propertyEntry in propertySet){
+            propertyDict[propertySet[propertyEntry].name] = propertySet[propertyEntry].value
+          }
+          this.searchResult.search_result[entry]['propertyDict'] = propertyDict
           resultData.push(this.searchResult.search_result[entry])
         }
+        
         var data = {
         fields: [
           {
             key: 'customTitle',
-            label: 'Title',
+            label: 'Name',
             formatter: value => {
               return value
             }
           },
           {
-            key: 'subtitle',
-            label: 'Subtitle',
+            key: 'propertyDict.lastModifiedDate',
+            label: 'Modified',
             formatter: value => {
-              return value
+              return new Date(value * 1000)
             }
           },
           {
-            key: 'content_text',
-            label: 'Content text',
+            key: 'propertyDict.dataSize',
+            label: 'Size (kB)',
             formatter: value => {
               return value
             }
