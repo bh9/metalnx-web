@@ -1,17 +1,39 @@
 <template>
 <div>
 <b-table striped head-variant="dark" hover :items="getGridData.items" :fields="getGridData.fields">
-  <template slot="customTitle" slot-scope="data">
-    <b-link v-bind:href="data.item.url_link" target="_blank">{{ data.item.title }}</b-link>
+  <template v-slot:cell(customTitle)="data">
+    <div v-if="data.item.propertyDict.isFile" class="listFile">
+      <b-link v-bind:href="data.item.url_link" target="_blank">{{ data.item.title}}</b-link>
+    </div>
+    <div v-else>
+      <b-link v-bind:href="data.item.url_link" target="_blank"><Fa :icon="faFolder"/>  {{ data.item.title}}</b-link>
+    </div>
+  </template>
+  <template v-slot:cell(propertyDict.dataSize)="data">
+    <div v-if="data.item.propertyDict.isFile" class="listFile">
+      {{data.item.propertyDict.dataSize}}
+    </div>
+    <div v-else>
+      -
+    </div>
   </template>
 </b-table>
 </div>
 </template>
 
 <script>
+  import Fa from 'vue-fa'
+  import { faFolder } from '@fortawesome/free-solid-svg-icons'
+
   export default {
+    components: {
+    Fa
+    },
     data() {
-    return {isActive: false}
+    return {
+      isActive: false,
+      faFolder
+    }
     },
     name:'SearchStyleResultGrid',
     props:['searchResult'],
@@ -60,3 +82,6 @@
     }
   }
 </script>
+<style scoped>
+
+</style>

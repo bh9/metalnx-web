@@ -10,6 +10,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "axios": "^0.18.0",
     "bootstrap": "^4.5.0",
     "bootstrap-vue": "^2.15.0",
@@ -19,6 +20,7 @@
     "view-router": "^0.2.3",
     "vue": "^2.6.11",
     "vue-cli": "^2.9.6",
+    "vue-fa": "^2.0.1",
     "vue-router": "^3.3.2",
     "vuejs": "^3.0.1"
   },
